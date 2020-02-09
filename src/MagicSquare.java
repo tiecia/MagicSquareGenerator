@@ -18,19 +18,19 @@ public class MagicSquare {
 
             for (int i = 0; i < board.size(); i++){ //Go through each row in the column
 
-                for (int n = 1; n <= Math.pow(board.size(), 2); n++) {
+                for (int n = 1; n <= (int)Math.pow(board.size(), 2); n++) {
 
-                    if (col == board.size()-1 && board.checkValid(i, col, n)) {
+                    if (board.checkValid(i, col, n)) {
 
-                        explore(col+1, board);
+                        if (col == board.size()-1) {
+                            explore(col+1, board);
+                        } else {
+                            explore(col, board);
+                        }
 
-                    } else if (board.checkValid(i, col, n)){
-
-                        explore(col, board);
+                        board.remove(i, col);
 
                     }
-
-                    board.remove(i, col);
 
                 }
 
