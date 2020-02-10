@@ -32,10 +32,6 @@ public class Board {
         board[row][col] = num;
     }
 
-    public int[][] getCopy(){
-        return board.clone();
-    }
-
     private boolean contains(int num){
         for(int[] arr : board){
             for(int current : arr){
@@ -109,6 +105,16 @@ public class Board {
 
     public int size(){
         return board.length;
+    }
+
+    public StringBuilder getBoardAsString(){
+        StringBuilder builder = new StringBuilder();
+        for(int[] list : board){
+            builder.append(Arrays.toString(list));
+            builder.append("\n");
+        }
+        builder.append("\n");
+        return builder;
     }
 
     public void printBoard(){

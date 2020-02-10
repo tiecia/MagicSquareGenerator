@@ -1,18 +1,15 @@
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
 public class MagicSquare {
 
-    private Set<Board> boards = new HashSet<>();
+    private StringBuilder boardList = new StringBuilder();
 
     public void printAllBoards(int size){
         explore(0,0, new Board(size));
+        System.out.println(boardList);
     }
 
     public void explore(int row, int col, Board board){
         if(col == board.size()){
-            board.printBoard();
+            boardList.append(board.getBoardAsString());
         } else {
             for(int n = 1; n<=Math.pow(board.size(), 2); n++){
                 if(row == board.size()-1 && board.checkValid(row, col, n)) {
