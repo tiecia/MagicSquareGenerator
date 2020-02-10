@@ -1,45 +1,29 @@
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 public class MagicSquare {
 
-    public static void printAllBoards(int size){
+    private Set<Board> boards = new HashSet<>();
 
-        explore(0, new Board(size));
-
+    public void printAllBoards(int size){
+        explore(0,0, new Board(size));
     }
 
-    public static void explore(int col, Board board) {
-
-        System.out.println("explore");
-        board.printBoard();
-
-        if (col == board.size()) {
-
-            System.out.println("SOLUTION:");
+    public void explore(int row, int col, Board board){
+        if(col == board.size()){
             board.printBoard();
-
         } else {
-
-            for (int i = 0; i < board.size(); i++){ //Go through each row in the column
-
-                for (int n = 1; n <= (int)Math.pow(board.size(), 2); n++) {
-
-                    if (board.checkValid(i, col, n)) {
-
-                        if (col == board.size()-1) {
-                            explore(col+1, board);
-                        } else {
-                            explore(col, board);
-                        }
-
-                        board.remove(i, col);
-
-                    }
-
+            for(int n = 1; n<=Math.pow(board.size(), 2); n++){
+                if(row == board.size()-1 && board.checkValid(row, col, n)) {
+                    board.place(row, col, n);
+                    explore(0,col+1, board);
+                } else if(board.checkValid(row, col, n)){
+                    board.place(row, col, n);
+                    explore(row+1, col, board);
                 }
-
+                board.remove(row, col);
             }
-
         }
-
     }
-
 }

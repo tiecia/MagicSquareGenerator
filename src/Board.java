@@ -2,6 +2,7 @@ import java.util.Arrays;
 
 public class Board {
 
+    //Magic Constant
     private int sum;
 
     private int[][] board;
@@ -24,15 +25,15 @@ public class Board {
         if(!checkNegDiag(row, col, num) || !checkPosDiag(row, col, num)){
             return false;
         }
-        if(!isRowValid(row, col, num) || !isColumnValid(row, col, num)){
-            return false;
-        }
-        board[row][col] = num;
-        return true;
+        return isRowValid(row, col, num) && isColumnValid(row, col, num);
     }
 
     public void place(int row, int col, int num){
         board[row][col] = num;
+    }
+
+    public int[][] getCopy(){
+        return board.clone();
     }
 
     private boolean contains(int num){
@@ -87,17 +88,17 @@ public class Board {
     }
 
     private boolean checkPosDiag(int row, int col, int num){
-        if(row+col != board.length){ //Dead end for if point is on of this diag
+        if(row+col != board.length-1){ //Dead end for if point is on of this diag
             return true;
         }
         int sum = 0;
         int n = board.length-1;
         for(int i = 0; i<board.length; i++){
-            sum += board[i][n];
-            if(row == 0 && sum+num != this.sum){  //TODO if number is placed in row 0 this will always be triggered off.
-                return false;
-            }
+            sum += board[n][i];
             n--;
+        }
+        if(col == board.length-1 && sum+num != this.sum){
+            return false;
         }
         return sum <= this.sum;
     }
