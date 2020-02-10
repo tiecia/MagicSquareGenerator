@@ -9,9 +9,11 @@ public class MagicSquare {
     public static void explore(int col, Board board) {
 
         System.out.println("explore");
+        board.printBoard();
 
         if (col == board.size()) {
 
+            System.out.println("SOLUTION:");
             board.printBoard();
 
         } else {
